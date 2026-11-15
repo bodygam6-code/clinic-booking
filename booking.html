@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="صفحة حجز موعد العيادة — املأ بياناتك لتأكيد الحجز">
+  <title>حجز موعد - العيادة</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+
+    <header class="page-header">
+      <span class="page-header__logo" aria-hidden="true">🩺</span>
+      <h1 class="page-header__title">حجز موعد - العيادة</h1>
+      <p class="page-header__subtitle">املأ البيانات التالية لتأكيد حجزك</p>
+    </header>
+
+    <!-- نموذج الحجز -->
+    <section class="card" id="booking-section" aria-label="نموذج الحجز">
+      <form id="booking-form" class="form" novalidate>
+
+        <div class="form__field">
+          <label class="form__label" for="name">الاسم بالكامل <span class="form__required" aria-hidden="true">*</span></label>
+          <input class="form__input" type="text" id="name" name="name"
+                 placeholder="اكتب اسمك ثلاثي" autocomplete="name" required>
+          <p class="form__error" data-error-for="name">من فضلك اكتب الاسم</p>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="phone">رقم الموبايل <span class="form__required" aria-hidden="true">*</span></label>
+          <input class="form__input" type="tel" id="phone" name="phone"
+                 placeholder="مثال: 01012345678" inputmode="numeric" maxlength="11" autocomplete="tel" required>
+          <p class="form__error" data-error-for="phone">اكتب رقم موبايل صحيح (11 رقم يبدأ بـ 01)</p>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="date">تاريخ الحجز <span class="form__required" aria-hidden="true">*</span></label>
+          <input class="form__input" type="date" id="date" name="date" required>
+          <p class="form__error" data-error-for="date">اختر تاريخ حجز صحيح (اليوم أو بعده)</p>
+        </div>
+
+        <div class="form__field">
+          <label class="form__label" for="age">العمر <span class="form__required" aria-hidden="true">*</span></label>
+          <input class="form__input" type="number" id="age" name="age"
+                 placeholder="مثال: 30" min="0" max="120" inputmode="numeric" required>
+          <p class="form__error" data-error-for="age">اكتب عمرًا بين 0 و 120</p>
+        </div>
+
+        <fieldset class="form__field form__fieldset">
+          <legend class="form__label">النوع <span class="form__required" aria-hidden="true">*</span></legend>
+          <div class="form__radio-row" role="radiogroup" aria-label="النوع">
+            <label class="radio-option">
+              <input class="radio-option__input" type="radio" name="gender" value="ذكر" required>
+              <span class="radio-option__label">👨 ذكر</span>
+            </label>
+            <label class="radio-option">
+              <input class="radio-option__input" type="radio" name="gender" value="أنثى" required>
+              <span class="radio-option__label">👩 أنثى</span>
+            </label>
+          </div>
+          <p class="form__error" data-error-for="gender">اختر النوع</p>
+        </fieldset>
+
+        <div class="form__field">
+          <label class="form__label" for="address">العنوان <span class="form__required" aria-hidden="true">*</span></label>
+          <input class="form__input" type="text" id="address" name="address"
+                 placeholder="المحافظة - المدينة - الشارع" required>
+          <p class="form__error" data-error-for="address">من فضلك اكتب العنوان</p>
+        </div>
+
+        <button class="form__submit" type="submit" id="submit-button">✅ تأكيد الحجز</button>
+
+        <p class="form__note">بياناتك محفوظة بسرية وتُستخدم فقط لتأكيد الحجز</p>
+      </form>
+    </section>
+
+    <!-- شاشة النجاح -->
+    <section class="card screen" id="success-screen" aria-label="تم الحجز بنجاح" hidden>
+      <span class="screen__icon" aria-hidden="true">🎉</span>
+      <h2 class="screen__title screen__title--success">تم استلام حجزك بنجاح!</h2>
+      <p class="screen__details" id="success-details"></p>
+      <button class="screen__action screen__action--secondary" type="button" id="new-booking-button">📋 حجز موعد آخر</button>
+    </section>
+
+    <!-- شاشة الخطأ -->
+    <section class="card screen" id="error-screen" aria-label="خطأ في الإرسال" hidden>
+      <span class="screen__icon" aria-hidden="true">⚠️</span>
+      <h2 class="screen__title screen__title--error">حصلت مشكلة في الإرسال</h2>
+      <p class="screen__details">اتأكد من اتصالك بالإنترنت وحاول تاني، أو تواصل مع العيادة مباشرة.</p>
+      <button class="screen__action" type="button" id="retry-button">🔄 إعادة المحاولة</button>
+    </section>
+
+    <footer class="page-footer">© العيادة — جميع الحقوق محفوظة</footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

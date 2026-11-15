@@ -1,0 +1,4 @@
+# Keep the deployment clean — only the hosting files are tracked
+New folder/
+*.tmp
+Thumbs.db
