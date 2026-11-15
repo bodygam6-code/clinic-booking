@@ -1,7 +1,7 @@
 /**
  * QR generator page.
  *
- * Builds a QR code that points at booking.html in the same folder,
+ * Builds a QR code that points at index.html in the same folder,
  * so the printed code always matches the hosted page location.
  */
 (function () {
@@ -16,9 +16,9 @@
     printButton: document.getElementById("print-button"),
   };
 
-  /** Absolute URL of booking.html next to the current page. */
+  /** Absolute URL of index.html (the booking page) next to the current page. */
   function getBookingPageUrl() {
-    return new URL("booking.html", window.location.href).href;
+    return new URL("index.html", window.location.href).href;
   }
 
   function buildQrImageUrl(targetUrl) {
