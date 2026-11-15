@@ -44,15 +44,19 @@
    - Path: مثلًا `clinic-booking`
 2. انسخ رابط الـ **Production URL** (شكله:
    `https://YOUR-N8N-SERVER/webhook/clinic-booking`)
-3. افتح `app.js` وغيّر أول سطر:
+3. افتح `app.js` وفي قايمة `WEBHOOK_URLS` هتلاقي رابطك — وزيادة رابط زميلك ببساطة:
    ```js
-   const WEBHOOK_URL = "https://YOUR-N8N-SERVER/webhook/clinic-booking";
+   const WEBHOOK_URLS = [
+     "https://YOUR-N8N-SERVER/webhook/clinic-booking",   // بتاعك
+     "https://TEAMMATE-N8N-SERVER/webhook/clinic-booking", // بتاع زميلك
+   ];
    ```
+   كل حجز بيتاخد على كل الروابط اللي في القايمة — ولو واحد فيهم مش شغال، الحجز بيوصل للباقيين عادي.
 4. ارفع الملفات تاني بعد التعديل.
 
-> ⚠️ **مهم (CORS):** في نود الـ Webhook في n8n فعّل خيار
-> **Allowed Origins (CORS)** واكتب فيها `*`
-> (Options ← Add Option ← Allowed Origins) — من غيرها المتصفح هيرفض الإرسال.
+> 💡 **CORS:** n8n بيسمح بكل المواقع (origins) افتراضيًا في نود الـ Webhook،
+> فغالبًا مش هتحتاج تعمل حاجة. لو ظهرت مشكلة إرسال من المتصفح بس،
+> فعّل **Allowed Origins (CORS)** واكتب فيها `*` من: Options ← Add Option.
 
 ### 3) اطبع الـ QR
 1. افتح `qr.html` من نفس المكان اللي رفعت فيه الملفات.

@@ -13,8 +13,16 @@
      Configuration
      ========================================================== */
 
-  /** Replace with your n8n Webhook (Production URL). */
-  const WEBHOOK_URL = "https://attitude-blighted-stunned.ngrok-free.dev/webhook/189bbb0c-e5a0-46e3-b281-472dd8186438";
+  /**
+   * Booking webhooks — every booking is sent to ALL URLs in this list.
+   * Paste a teammate's ngrok webhook URL as another line to mirror bookings.
+   */
+  const WEBHOOK_URLS = [
+    // Clinic A (mine)
+    "https://attitude-blighted-stunned.ngrok-free.dev/webhook/189bbb0c-e5a0-46e3-b281-472dd8186438",
+    // Clinic B (teammate) — paste their ngrok webhook URL here:
+    // "https://XXXX.ngrok-free.dev/webhook/XXXX",
+  ];
 
   const VALIDATION_RULES = {
     name: {
@@ -95,11 +103,12 @@
   }
 
   /* ==========================================================
-     API — n8n webhook
+     API — n8n webhooks (sent to every URL in WEBHOOK_URLS)
      ========================================================== */
 
-  async function sendBooking(payload) {
-    const response = await fetch(WEBHOOK_URL, {
+  /** Sends the payload to one webhook; throws on HTTP errors. */
+  async function deliverBooking(url, payload) {
+    const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -108,6 +117,25 @@
     if (!response.ok) {
       throw new Error(`Webhook responded with HTTP ${response.status}`);
     }
+  }
+
+  /**
+   * Sends the booking to all webhooks in parallel.
+   * Succeeds if at least one copy is delivered; reports the rest.
+   */
+  async function sendBooking(payload) {
+    const results = await Promise.allSettled(
+      WEBHOOK_URLS.map((url) => deliverBooking(url, payload))
+    );
+
+    const delivered = results.filter((result) => result.status === "fulfilled");
+    if (delivered.length === 0) {
+      throw new Error("No webhook accepted the booking");
+    }
+
+    results
+      .filter((result) => result.status === "rejected")
+      .forEach((result) => console.warn("A webhook copy failed:", result.reason));
   }
 
   /* ==========================================================
