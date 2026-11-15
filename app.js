@@ -122,9 +122,11 @@
   }
 
   function setFieldError(fieldName, hasError) {
-    const input = dom.form.elements[fieldName];
-    if (input) {
-      input.classList.toggle("form__input--invalid", hasError);
+    // Radio groups come back as a RadioNodeList — it has no classList,
+    // so only single-input controls get the invalid styling.
+    const control = dom.form.elements[fieldName];
+    if (control && control.classList) {
+      control.classList.toggle("form__input--invalid", hasError);
     }
 
     const message = dom.form.querySelector(`[data-error-for="${fieldName}"]`);
