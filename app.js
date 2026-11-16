@@ -110,7 +110,11 @@
   async function deliverBooking(url, payload) {
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        // Skips ngrok's free-tier browser warning page (ERR_NGROK_6024)
+        "ngrok-skip-browser-warning": "clinic-booking-page",
+      },
       body: JSON.stringify(payload),
     });
 
