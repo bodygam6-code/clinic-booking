@@ -20,8 +20,8 @@
   const WEBHOOK_URLS = [
     // Clinic A (mine)
     "https://attitude-blighted-stunned.ngrok-free.dev/webhook/189bbb0c-e5a0-46e3-b281-472dd8186438",
-    // Clinic B (teammate) — paste their ngrok webhook URL here:
-    // "https://XXXX.ngrok-free.dev/webhook/XXXX",
+    // Clinic B (teammate) — test URL: only works while their editor is listening
+    "https://retract-monsieur-jovial.ngrok-free.dev/webhook-test/Clinic",
   ];
 
   const VALIDATION_RULES = {
